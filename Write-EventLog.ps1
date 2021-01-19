@@ -25,36 +25,27 @@ function Write-EventLogEntry {
         While this function does not require administrator privileges to run by itself, administrator rights are required in order to create the log & tie the event source
         to the log via the New-EventLog cmdlet. If the log or event source are not already prepared, this function will result in an error.
 
-        This function is intended to simplify the process of committing events to the Windows event logs and implements a simple default ID/Event-type system. The function
-        always requires the Message parameter as input but the 'Type' and 'ID' parameters are mutually exclusive and cannot be combined.
-
-        The default IDs use the following scheme: X000
-
-        Where the trailing zeros are the default when a specific ID is not given.
-        Where X = the # for the event severity level (event type)
-
+        This function is intended to simplify the process of committing events to the Windows event logs and implements a simple default ID/Event-type system.
+        The function always requires the Message parameter as input but the 'Type' and 'ID' parameters are mutually exclusive and cannot be combined.
+        
+        IDs are in the format of: X000 where X == severity
             1 = Error
             2 = Warning
             3 = Information
             5 = SuccessAudit
             6 = FailureAudit
-
-            Where the trailing zeros are the default.
-    
-        If an event type is not provided to the function, an ID is required and the ID provided is automatically categorized where the first digit defines the event type.
-            1 = Error
-            2 = Warning
-            3 = Information
-            5 = SuccessAudit
-            6 = FailureAudit
+        
+        If no ID is manually specified, a default ID is used with the 3 trailing digits are 0's.
+        If an ID is specified the event type is auto determined based on the first digit
     
     .OUTPUTS
       This function does not output to the pipeline.
     
     .NOTES
       Version:          1.0.1
-      Author:           Matt Drummond
-      Published Date:   15 January 2021
+      Author:           Matthew Drummond
+      Co-Author:  James Epp
+      Published Date:   18 January 2021
     
     .EXAMPLE
         Write-EventLogEntry -Message "Successful Process XYZ" -Type Information

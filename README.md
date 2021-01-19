@@ -8,13 +8,9 @@ While this function does not require administrator privileges to run by itself, 
 
 This function is intended to simplify the process of committing events to the Windows event logs and implements a simple default ID/Event-type system. The function always requires the Message parameter as input but the 'Type' and 'ID' parameters are mutually exclusive and cannot be combined.
 
-The default IDs use the following scheme:
 
-X000
+IDs are in the format of: X000 where X == severity
 
-Where the trailing zeros are the default when a specific ID is not given.
-
-Where X = the # for the event severity level (event type)
 
 | Number | Severity Level |
 | ------ | -------------- |
@@ -23,6 +19,9 @@ Where X = the # for the event severity level (event type)
 | 3      | Information    |
 | 5      | SuccessAudit   |
 | 6      | FailureAudit   |
+
+If no ID is manually specified, a default ID is used with the 3 trailing digits are 0's.
+If an ID is specified the event type is auto determined based on the first digit
 
 ## EXAMPLE
 
